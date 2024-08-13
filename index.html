@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5"
+      name="viewport"
+    />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Surat Cinta</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Comfortaa", cursive;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      section {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #262626;
+        min-height: 100vh;
+        overflow: hidden;
+        padding: 20px;
+      }
+
+      .content {
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.28) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        backdrop-filter: blur(30px);
+        border-radius: 20px;
+        width: min(900px, 100%);
+        box-shadow: 0 0.5px 0 1px rgba(255, 255, 255, 0.23) inset,
+          0 1px 0 0 rgba(255, 255, 255, 0.66) inset,
+          0 4px 16px rgba(0, 0, 0, 0.12);
+        z-index: 10;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 450px;
+        height: auto;
+        padding: 30px 35px;
+        text-align: justify;
+      }
+
+      .info p {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .movie-night {
+        background: linear-gradient(
+          225deg,
+          #ff3cac 0%,
+          #784ba0 50%,
+          #2b86c5 100%
+        );
+      }
+
+      .btn {
+        display: block;
+        padding: 10px 40px;
+        margin: 10px auto;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 4px;
+        outline: none;
+        text-decoration: none;
+        color: #784ba0;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+      }
+
+      .btn:hover,
+      .btn:focus,
+      .btn:active,
+      .btn:visited {
+        transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+        animation: gelatine 0.5s 1;
+      }
+
+      @keyframes gelatine {
+        0%,
+        100% {
+          transform: scale(1, 1);
+        }
+        25% {
+          transform: scale(0.9, 1.1);
+        }
+        50% {
+          transform: scale(1.1, 0.9);
+        }
+        75% {
+          transform: scale(0.95, 1.05);
+        }
+      }
+
+      /* SWIPER */
+
+      .swiper {
+        width: 300px;
+        height: 450px;
+        padding: 50px 0;
+      }
+
+      .swiper-slide {
+        width: 100%;
+        position: relative;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        user-select: none;
+      }
+
+      .swiper-slide img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .swiper-slide video {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      .img-position {
+        object-position: 50% 0%;
+      }
+
+      .overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #0f2027, transparent, transparent);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .overlay span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #fff;
+        padding: 7px 18px;
+        margin: 10px;
+        border-radius: 20px;
+        letter-spacing: 2px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        font-family: inherit;
+        background: rgba(255, 255, 255, 0.095);
+        box-shadow: inset 2px -2px 20px rgba(214, 214, 214, 0.2),
+          inset -3px 3px 3px rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(74px);
+      }
+
+      .overlay h2 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.1rem;
+        line-height: 1.4;
+        margin: 0 0 20px 20px;
+      }
+
+      /* ANIMATED BACKGROUND */
+
+      .circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .circles li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background-color: #ff3cac;
+        background-image: linear-gradient(
+          225deg,
+          #ff3cac 0%,
+          #784ba0 50%,
+          #2b86c5 100%
+        );
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+      }
+
+      .circles li:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.04.jpeg");
+        animation-delay: 0s;
+      }
+
+      .circles li:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.04\ \(1\).jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.04\ \(2\).jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.05.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.05\ \(1\).jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.06.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.11.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.12.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.04.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .circles li:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+        background: url("./source/media/WhatsApp\ Image\ 2024-08-13\ at\ 00.17.04\ \(1\).jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
+
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
+
+      @media (max-width: 750px) {
+        .content {
+          flex-direction: column-reverse;
+        }
+
+        .btn {
+          margin: 10px auto 40px;
+        }
+      }
+
+      @media (max-width: 570px) {
+        .content {
+          flex-direction: column-reverse;
+        }
+        .info {
+          width: 100%;
+          padding: 10px;
+        }
+        p#text2 {
+          padding: 0px 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section>
+        <div class="content">
+          <div class="info">
+            <p id="text"></p>
+            <p id="text2"></p>
+            <button class="btn">I Love U</button>
+          </div>
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.04 (1).jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Kesayangan</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  class="img-position"
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.04 (2).jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Bikin Klepek-Klepek</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.04.jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Terkiut</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.05 (1).jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>More</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.05.jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Teromantis</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  src="./source/media/WhatsApp Image 2024-08-13 at 00.17.06.jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Tersayang</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  class="img-position"
+                  src="../source/media/WhatsApp Image 2024-08-13 at 00.17.11.jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Suka Ngasih Motivasi</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <img
+                  src="../source/media/WhatsApp Image 2024-08-13 at 00.17.12.jpeg"
+                  alt=""
+                />
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Suka Ngangenin</h2>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <video autoplay muted loop>
+                  <source
+                    src="../source/media/WhatsApp Video 2024-08-13 at 00.17.11.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Alay</h2>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <video autoplay muted loop>
+                  <source
+                    src="../source/media/WhatsApp Video 2024-08-13 at 12.01.07.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <div class="overlay">
+                  <span>9.9</span>
+                  <h2>Anjay</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </section>
+    </div>
+    <audio
+      class="audioPlay"
+      src="../source/media/9convert.com - nadhif basalamah  penjaga hati Official Lyric Video.mp3"
+    ></audio>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".swiper", {
+        effect: "cards",
+        grabCursor: true,
+        initialSlide: 2,
+        speed: 500,
+        loop: true,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        rotate: true,
+        mousewheel: {
+          invert: false,
+        },
+        breakpoints: {
+          570: {
+            slidesPerView: 1.25,
+            spaceBetween: 20,
+          },
+          640: {
+            slidesPerView: 1.25,
+            spaceBetween: 20,
+          },
+        },
+      });
+
+      function showDiv() {
+        ketik();
+        document.querySelector(".content").style.display = "flex";
+      }
+
+      var i = 0,
+        text;
+      text = "";
+      var u = 0,
+        text2;
+      text2 = "";
+
+      function ketik() {
+        if (i < text.length) {
+          document.getElementById("text").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(ketik, 100);
+        }
+        if (i == text.length) {
+          document.getElementById("text").innerHTML = text + emotnama;
+          ketikk();
+        }
+      }
+      function ketikk() {
+        if (u < text2.length) {
+          document.getElementById("text2").innerHTML += text2.charAt(u);
+          u++;
+          setTimeout(ketikk, 200);
+        }
+        if (u == text2.length) {
+          document.getElementById("tlink").style.display = "block";
+        }
+      }
+
+      let btn = document.querySelector(".btn");
+      btn.addEventListener("click", async (e) => {
+        var { value: nama } = await swals.fire({
+          title: "Surat Kangen",
+          text: "Cuman Segitu Doang",
+          imageUrl:
+            "https://tenor.com/id/view/tkthao219-bubududu-panda-gif-24055162.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          allowOutsideClick: false,
+          showCancelButton: false,
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      function play() {
+        //Link Audio Bisa Diganti
+        let audioPlay = document.querySelector(".audioPlay");
+        audioPlay.play();
+      }
+
+      const swals = Swal.mixin({
+        allowOutsideClick: false,
+        cancelButtonColor: "#FF0040",
+      });
+      const swalsy = Swal.mixin({
+        confirmButtonText: "Iya",
+        allowOutsideClick: false,
+      });
+      const swalst = Swal.mixin({
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+
+      async function mulaitanya() {
+        var { isConfirmed: tanyawal } = await swals.fire({
+          title: `Hai kamu!`,
+          text: `Mau isi nama kamu dulu atau langsung aja?`,
+          imageUrl:
+            "https://tenor.com/id/view/heart-crazy-cute-in-love-smiling-happy-red-gif-13755026.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          confirmButtonText: "Isi Nama",
+          cancelButtonText: "Langsung Aja",
+          allowOutsideClick: false,
+          showCancelButton: true,
+        });
+        if (tanyawal) {
+          mulai();
+          play();
+        } else {
+          nama = "Kamu";
+          kuis();
+          play();
+        }
+      }
+
+      async function mulai() {
+        var { value: nama } = await swals.fire({
+          title: "Masukin nama kamu",
+          input: "text",
+          imageUrl:
+            "https://tenor.com/id/view/tkthao219-bubududu-panda-gif-24055162.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          allowOutsideClick: false,
+          showCancelButton: false,
+        });
+        if (nama && nama.length < 11) {
+          window.nama = nama;
+          kuis();
+        } else {
+          await swals.fire(
+            "Ups!",
+            "Nama tidak boleh kosong atau lebih dari 10 karakter, ya!"
+          );
+          mulai();
+        }
+      }
+
+      async function kuis() {
+        text = "Dear, " + nama + ".    ";
+        emotnama = "&#10084;";
+        text2 = `Setiap kali aku memikirkanmu, senyumku selalu terukir tanpa sadar. Kehadiranmu seperti sinar matahari yang lembut di pagi hari, yang membawa kehangatan dan kebahagiaan ke dalam hidupku. Aku mengharapkan setiap momen bersamamu, karena hanya denganmu, dunia ini terasa lebih indah dan penuh warna.
+
+                  Setiap langkah yang kita ambil bersama, setiap tawa yang kita bagi, membuatku semakin yakin bahwa kaulah yang selama ini aku cari. Hatiku selalu berharap, semoga kamu bisa terus berada di sisiku, membuat hariku lebih cerah dan hatiku lebih tenang.
+
+                  Bersamamu, aku tahu bahwa cinta sejati bukan hanya sebuah mimpi. Kamu adalah bukti bahwa cinta itu nyata, hadir dalam bentuk dirimu yang selalu membuatku merasa begitu istimewa. Setiap detik yang aku habiskan denganmu adalah momen yang tak ternilai, dan aku berjanji akan selalu menjaga dan menghargai apa yang kita miliki.`;
+        pilihwarna();
+      }
+      mulaitanya();
+    </script>
+    <script>
+      maupilih = "mau pilih warna apa nih?";
+      warnaA = "Ungu";
+      warnaB = "Merah";
+      vyakin = "Yakin";
+      vganti = "Ganti";
+      emotketawa = "&#129315;";
+
+      teksatas = "Yeayy!";
+      teksatasoke = "Oke!";
+      teksakhiroke = "Sekarang lihat ini ya <3";
+      teksbawahA = "Memilih Ungu... Kamu adalah milikku!";
+      teksbawahAA = "yakin pilih warna Ungu?";
+      teksbawahAAA = "Atau mau ganti warna aja nih?";
+      teksbawahB = "Memilih Merah... Kamu adalah kesayanganku!";
+      teksbawahBB = "yakin pilih warna Merah?";
+      teksbawahBBB = "Atau mau ganti warna aja nih?";
+
+      teksgantiA = "Oke, memilih Merah!";
+      teksgantiAA =
+        "Sama aja sih sebenernya, cuma kalo Merah rasa Stroberi" + emotketawa;
+      teksgantiB = "Oke, memilih Ungu!";
+      teksgantiBB =
+        "Sama aja sih sebenernya, cuma beda warna doang" + emotketawa;
+
+      gambar1 =
+        "https://tenor.com/id/view/bear-run-cant-run-cute-bear-love-gif-22542480.gif";
+      gambar2 =
+        "https://tenor.com/id/view/sami-en-dina-sami-dina-dina-sami-dina-en-sami-gif-15422575992980791421.gif";
+      gambar3 = "";
+
+      async function pilihwarna() {
+        var { isConfirmed: warna } = await swals.fire({
+          title: nama + " " + maupilih,
+          imageUrl: "" + gambar1,
+          imageWidth: 120,
+          imageHeight: 120,
+          showCancelButton: true,
+          confirmButtonText: "" + warnaA,
+          cancelButtonText: "" + warnaB,
+        });
+        if (warna) {
+          await swals.fire({
+            title: "" + teksatas,
+            text: "" + teksbawahA,
+            imageUrl: "" + gambar2,
+            imageWidth: 120,
+            imageHeight: 120,
+          });
+          var { isConfirmed: warna2 } = await swals.fire({
+            title: nama + " " + teksbawahAA,
+            text: "" + teksbawahAAA,
+            showCancelButton: true,
+            confirmButtonText: "" + vyakin,
+            cancelButtonText: "" + vganti,
+          });
+          if (warna2) {
+            await swals.fire({
+              title: "" + teksatasoke,
+              text: "" + teksakhiroke,
+            });
+            showDiv();
+          } else {
+            await swals.fire({
+              title: "" + teksgantiA,
+              html: "" + teksgantiAA,
+              imageUrl: "" + gambar3,
+              imageWidth: 120,
+              imageHeight: 120,
+            });
+            showDiv();
+          }
+          //Selingan
+        } else {
+          await swals.fire({
+            title: "" + teksatas,
+            text: "" + teksbawahB,
+            imageUrl: "" + gambar2,
+            imageWidth: 120,
+            imageHeight: 120,
+          });
+          var { isConfirmed: warna2 } = await swals.fire({
+            title: nama + " " + teksbawahBB,
+            text: "" + teksbawahBBB,
+            showCancelButton: true,
+            confirmButtonText: "" + vganti,
+            cancelButtonText: "" + vyakin,
+          });
+          if (warna2) {
+            await swals.fire({
+              title: "" + teksgantiB,
+              html: "" + teksgantiBB,
+              imageUrl: "" + gambar3,
+              imageWidth: 120,
+              imageHeight: 120,
+            });
+            showDiv();
+          } else {
+            await swals.fire({
+              title: "" + teksatasoke,
+              text: "" + teksakhiroke,
+            });
+            showDiv();
+          }
+        }
+      }
+      async function popup() {
+        await swals.fire({
+          title: "><",
+          imageUrl: "",
+          imageWidth: 300,
+          imageHeight: 300,
+        });
+      }
+    </script>
+  </body>
+</html>
